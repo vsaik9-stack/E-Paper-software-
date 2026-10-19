@@ -1,0 +1,53 @@
+version: "3.9"
+
+# Isolated Docker Stack for Praja Jyothi (epaper.prajajyothi.com)
+services:
+  postgres_prajajyothi:
+    image: postgres:16-alpine
+    container_name: epaper_db_prajajyothi
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: epaper
+      POSTGRES_PASSWORD: epaper_prajajyothi_pass
+      POSTGRES_DB: epaper_prajajyothi
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+
+  backend_prajajyothi:
+    build: ./backend
+    container_name: epaper_api_prajajyothi
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./data/storage:/app/storage_data
+    ports:
+      - "8102:8000"
+    depends_on:
+      - postgres_prajajyothi
+
+  frontend_prajajyothi:
+    build: ./frontend
+    container_name: epaper_web_prajajyothi
+    restart: unless-stopped
+    environment:
+      BACKEND_INTERNAL_URL: http://backend_prajajyothi:8000
+      NEXT_PUBLIC_SINGLE_TENANT_SLUG: prajajyothi
+    ports:
+      - "8202:3000"
+    depends_on:
+      - backend_prajajyothi
+
+  caddy_prajajyothi:
+    image: caddy:2.8-alpine
+    container_name: epaper_caddy_prajajyothi
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./data/caddy_data:/data
+      - ./data/caddy_config:/config
+    depends_on:
+      - backend_prajajyothi
+      - frontend_prajajyothi

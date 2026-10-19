@@ -1,0 +1,40 @@
+# ============================================================================
+# PressGrid Multi-Tenant White-Label E-Paper SaaS Platform - Caddyfile
+# Automatic On-Demand TLS (Let's Encrypt / ZeroSSL) for Custom Client Domains
+# ============================================================================
+{
+    # On-Demand TLS: Dynamically queries our FastAPI backend before issuing
+    # an SSL certificate for any custom newspaper domain (e.g. epaper.dishadaily.com)
+    on_demand_tls {
+        ask http://backend:8000/api/v1/public/tls-check
+    }
+}
+
+# Catch-all HTTPS & HTTP block serving all onboarded newspaper custom domains
+:80, :443 {
+    tls {
+        on_demand
+    }
+
+    encode zstd gzip
+
+    # High-performance direct proxy for API, DZI XML manifests, and 512x512 WebP tiles
+    handle /api/v1/* {
+        reverse_proxy backend:8000 {
+            header_up Host {host}
+            header_up X-Forwarded-Host {host}
+            header_up X-Forwarded-Proto {scheme}
+            header_up X-Tenant-Domain {host}
+        }
+    }
+
+    # Next.js 14 White-Label Broadsheet Reader & Admin Portal
+    handle {
+        reverse_proxy frontend:3000 {
+            header_up Host {host}
+            header_up X-Forwarded-Host {host}
+            header_up X-Forwarded-Proto {scheme}
+            header_up X-Tenant-Domain {host}
+        }
+    }
+}

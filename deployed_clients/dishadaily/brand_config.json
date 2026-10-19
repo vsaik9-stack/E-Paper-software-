@@ -1,0 +1,17 @@
+{
+  "single_tenant_lock": true,
+  "client_name": "Disha Daily",
+  "client_slug": "dishadaily",
+  "domain": "epaper.dishadaily.com",
+  "logo_url": null,
+  "brand_primary_color": "#dc2626",
+  "brand_secondary_color": "#0f172a",
+  "editions": [
+    "Hyderabad Main",
+    "Warangal Edition",
+    "Vijayawada Edition"
+  ],
+  "admin_portal_url": "https://epaper.dishadaily.com/admin",
+  "admin_email": "editor@dishadaily.com",
+  "generated_at": "2026-10-19 05:35:30 UTC"
+}

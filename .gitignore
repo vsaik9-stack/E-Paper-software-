@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Next.js build
+.next/
+out/
+build/
+dist/
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment variables & secrets
+.env
+.env.local
+.env.*.local
+*.log
+
+# Storage & generated uploads
+storage/issues/
+storage/clips/
+*.sqlite
+*.sqlite3

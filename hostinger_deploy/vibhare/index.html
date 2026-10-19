@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>విభారె తెలుగు దినపత్రిక • Vibhare Telugu Daily E-Paper</title>
+  <meta name="description" content="Vibhare Telugu Daily (Vision Bharath Reporter) Official Digital E-Paper Edition" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.1/openseadragon.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Official Vibhare News Google AdSense Script (ca-pub-1059950253311579) -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1059950253311579" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --primary-color: #dc2626;
+      --secondary-color: #1e3a8a;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.45); border-radius: 9999px; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+
+  <!-- ====================================================================== -->
+  <!-- VIEW 1: E-PAPER NEWSSTAND HOMEPAGE (Select Edition & Date)             -->
+  <!-- ====================================================================== -->
+  <div id="homeView" class="min-h-screen flex flex-col bg-slate-50">
+    <!-- Top Brand Accent & Masthead Header -->
+    <header class="bg-white border-b border-slate-200 shadow-xs sticky top-0 z-30" style="border-top: 4px solid #dc2626;">
+      <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 sm:py-3">
+        <!-- Row 1: Logo + Public Reader Actions -->
+        <div class="flex items-center justify-between gap-2">
+          <a href="./" class="flex items-center gap-2.5 shrink-0">
+            <img src="assets/logo.png" alt="Vibhare Telugu Daily" class="h-10 sm:h-14 w-auto object-contain" />
+          </a>
+
+          <div class="flex items-center gap-1.5 sm:gap-2">
+            <!-- Edition Filter (Desktop) -->
+            <div class="hidden lg:flex items-center gap-1.5 bg-slate-100 px-3 py-2 rounded-xl border border-slate-200">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-red-600"></i>
+              <select id="homeEditionFilter" class="bg-transparent text-xs font-extrabold text-slate-800 focus:outline-none cursor-pointer">
+                <option value="">All Editions</option>
+              </select>
+            </div>
+
+            <!-- Read Latest Paper Button -->
+            <button id="openLatestBtn" type="button" class="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-[11px] sm:text-xs font-extrabold shadow-xs transition cursor-pointer">
+              <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+              <span>Latest Paper</span>
+            </button>
+
+            <!-- Main Website Link -->
+            <a href="https://vibharenews.com" target="_blank" class="inline-flex items-center gap-1 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-[11px] sm:text-xs font-extrabold transition">
+              <i data-lucide="globe" class="w-3.5 h-3.5"></i>
+              <span class="hidden sm:inline">Main Website</span>
+              <span class="sm:hidden">Website</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Row 2: Clean 3-Column Date & Archive Filter Bar -->
+        <div class="mt-2.5 pt-2.5 border-t border-slate-100 grid grid-cols-3 sm:flex sm:flex-wrap items-center gap-1.5 sm:gap-2.5">
+          <!-- Year Filter -->
+          <div class="flex items-center gap-1 bg-slate-100 hover:bg-slate-200/80 px-2 sm:px-3 py-1.5 sm:py-2 rounded-xl border border-slate-200 min-w-0 transition">
+            <span class="hidden sm:inline text-[11px] font-bold text-slate-500 uppercase">Year:</span>
+            <select id="homeYearFilter" class="w-full bg-transparent text-[11px] sm:text-xs font-extrabold text-slate-900 focus:outline-none cursor-pointer truncate">
+              <option value="">All Years</option>
+            </select>
+          </div>
+
+          <!-- Month Filter -->
+          <div class="flex items-center gap-1 bg-slate-100 hover:bg-slate-200/80 px-2 sm:px-3 py-1.5 sm:py-2 rounded-xl border border-slate-200 min-w-0 transition">
+            <span class="hidden sm:inline text-[11px] font-bold text-slate-500 uppercase">Month:</span>
+            <select id="homeMonthFilter" class="w-full bg-transparent text-[11px] sm:text-xs font-extrabold text-slate-900 focus:outline-none cursor-pointer truncate">
+              <option value="">All Months</option>
+              <option value="01">January</option>
+              <option value="02">February</option>
+              <option value="03">March</option>
+              <option value="04">April</option>
+              <option value="05">May</option>
+              <option value="06">June</option>
+              <option value="07">July</option>
+              <option value="08">August</option>
+              <option value="09">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+          </div>
+
+          <!-- Specific Date Picker (iOS Friendly with min-h and clean placeholder) -->
+          <div class="flex items-center gap-1 bg-red-50 hover:bg-red-100/80 px-2 sm:px-3.5 py-1.5 sm:py-2 rounded-xl border border-red-200 min-w-0 transition relative">
+            <i data-lucide="calendar" class="w-3.5 h-3.5 text-red-600 shrink-0"></i>
+            <input id="homeDateFilter" type="date" class="w-full bg-transparent text-[11px] sm:text-xs font-extrabold text-red-700 focus:outline-none cursor-pointer min-w-0 appearance-none [-webkit-appearance:none]" title="Select Specific Date" placeholder="Pick Date" />
+            <button id="clearDateFilterBtn" class="hidden text-rose-600 hover:text-rose-700 cursor-pointer shrink-0 p-0.5" title="Clear Date Filter">
+              <i data-lucide="x" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Row 3: Clean Light Quick Date Pills Strip (No Blue Gradient!) -->
+        <div class="mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between gap-2">
+          <div id="quickDatesBar" class="no-scrollbar flex items-center gap-1.5 overflow-x-auto max-w-full"></div>
+          <span id="issuesCountBadge" class="hidden sm:inline-block shrink-0 text-[11px] font-extrabold px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200"></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Grid of Available E-Paper Issues by Date (Opens immediately at the top!) -->
+    <main class="max-w-7xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-6 flex-1">
+      <!-- Loading Skeleton -->
+      <div id="homeLoading" class="py-16 flex flex-col items-center justify-center gap-3 text-slate-500">
+        <div class="w-10 h-10 border-4 border-red-600 border-t-transparent rounded-full animate-spin"></div>
+        <p class="text-sm font-bold">Loading Vibhare Digital E-Paper Editions...</p>
+      </div>
+
+      <!-- Empty State -->
+      <div id="homeEmpty" class="hidden bg-white rounded-2xl border border-slate-200 p-8 sm:p-12 text-center max-w-md mx-auto my-6 shadow-2xs">
+        <div class="w-12 h-12 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center mx-auto mb-3">
+          <i data-lucide="calendar-x" class="w-6 h-6"></i>
+        </div>
+        <h3 class="text-base font-black text-slate-900">No E-Paper Found for Selected Date</h3>
+        <p class="text-xs text-slate-500 mt-1 mb-4">Try selecting another date from the calendar or view all available editions.</p>
+        <button id="resetFiltersBtn" class="px-4 py-2 rounded-xl bg-red-600 text-white text-xs font-extrabold cursor-pointer">
+          Show All Available Dates
+        </button>
+      </div>
+
+      <!-- Cards Grid: 2 Columns on Phone, 3 on Tablet, 4 on Desktop -->
+      <div id="issuesCardsGrid" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6"></div>
+
+      <!-- Numbered Page Navigation Bar (Page 1, 2, 3, Next...) -->
+      <div id="paginationContainer" class="hidden mt-8 flex flex-col sm:flex-row items-center justify-between gap-3 bg-white p-3.5 sm:px-5 rounded-2xl border border-slate-200 shadow-2xs">
+        <div id="paginationSummary" class="text-xs font-bold text-slate-600"></div>
+        <div id="paginationButtons" class="flex flex-wrap items-center justify-center gap-1.5"></div>
+      </div>
+
+      <!-- Google AdSense Banner Unit (Placed BELOW the E-Paper Grid as requested) -->
+      <div class="mt-8 bg-white rounded-2xl border border-slate-200/80 p-2 text-center overflow-hidden shadow-2xs">
+        <div class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Advertisement</div>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-1059950253311579"
+             data-ad-slot="7406203456"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+    </main>
+
+    <!-- Footer (Includes Mobile Stress Busters Pill & Discreet Admin Link) -->
+    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 px-4 sm:px-6 text-center text-xs">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+          <p class="font-bold text-slate-300">© 2026 Vibhare Telugu Daily (Vision Bharath Reporter) • All Rights Reserved.</p>
+          <a href="admin/" class="text-[11px] text-slate-500 hover:text-slate-300 underline">Admin Login</a>
+        </div>
+
+        <!-- Mobile/Footer Pill Badge -->
+        <a href="https://stressbusters.co.in" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-3 px-3.5 py-2 rounded-2xl bg-gradient-to-r from-white via-slate-50 to-slate-100 border border-white shadow-md">
+          <div class="w-12 h-8 rounded-xl bg-white border border-slate-200 flex items-center justify-center p-1 shrink-0">
+            <img src="assets/stressbusters-logo.png" alt="Stress Busters" class="w-full h-full object-contain" />
+          </div>
+          <div class="pr-1 text-left leading-tight">
+            <div class="text-[9px] font-extrabold tracking-[0.12em] text-slate-400 uppercase">Developed &amp; Powered By</div>
+            <div class="text-xs font-black tracking-tight mt-0.5">
+              <span class="text-slate-900">Stress Busters</span>
+              <span class="text-slate-500 font-extrabold">Digital Media</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Floating "Developed & Powered by Stress Busters Digital Media" Pill Badge (Desktop/Tablet Floating) -->
+  <a href="https://stressbusters.co.in" target="_blank" rel="noopener noreferrer"
+     class="hidden md:flex fixed bottom-4 right-4 z-40 items-center gap-3 px-3.5 py-2 rounded-2xl bg-gradient-to-r from-white via-slate-50 to-slate-100/95 backdrop-blur-md border-2 border-white shadow-[0_8px_30px_rgb(15,23,42,0.12)] hover:shadow-[0_12px_36px_rgb(15,23,42,0.18)] transition-all duration-200 select-none group">
+    <div class="w-14 h-10 rounded-xl bg-white border border-slate-200/80 shadow-2xs flex items-center justify-center p-1.5 shrink-0">
+      <img src="assets/stressbusters-logo.png" alt="Stress Busters" class="w-full h-full object-contain" />
+    </div>
+    <div class="pr-1 text-left leading-tight">
+      <div class="text-[9px] font-extrabold tracking-[0.14em] text-slate-400 uppercase">Developed &amp; Powered By</div>
+      <div class="text-xs sm:text-sm font-black tracking-tight mt-0.5">
+        <span class="text-slate-900">Stress Busters</span>
+        <span class="text-slate-500 font-extrabold">Digital Media</span>
+      </div>
+    </div>
+  </a>
+
+
+  <!-- ====================================================================== -->
+  <!-- VIEW 2: FULL-SCREEN BROADSHEET READER (Opens when an issue is clicked) -->
+  <!-- ====================================================================== -->
+  <div id="readerView" class="hidden fixed inset-0 z-50 flex flex-col h-screen w-screen overflow-hidden bg-slate-900 text-slate-100 select-none">
+    <!-- Top Reader Control Bar -->
+    <header class="bg-white text-slate-900 border-b border-slate-200 px-3 sm:px-5 py-2 flex items-center justify-between shadow-md z-30 shrink-0" style="border-top: 4px solid #dc2626;">
+      <!-- Left: Old Editions / All Dates Button + Direct Date Switcher + Logo -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button id="backToHomeBtn" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-extrabold flex items-center gap-1.5 cursor-pointer transition shadow-xs" title="View All Editions & Homepage">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i>
+          <span>All Editions</span>
+        </button>
+
+        <!-- Direct Calendar Date Picker right inside the Reader -->
+        <div class="hidden sm:flex items-center gap-1.5 bg-red-50 hover:bg-red-100/80 px-3 py-1.5 rounded-xl border border-red-200 transition">
+          <i data-lucide="calendar" class="w-4 h-4 text-red-600"></i>
+          <input id="readerDateInput" type="date" class="bg-transparent text-xs font-extrabold text-red-700 focus:outline-none cursor-pointer" title="Switch to another date's E-Paper" />
+        </div>
+
+        <!-- Button to open Old Editions Archive Drawer while inside Reader -->
+        <button id="openArchiveModalBtn" class="px-3 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 text-xs font-extrabold flex items-center gap-1.5 cursor-pointer transition" title="Browse Old Editions">
+          <i data-lucide="library" class="w-4 h-4 text-amber-600"></i>
+          <span class="hidden md:inline">Old Editions Archive</span>
+          <span class="md:hidden">Archive</span>
+        </button>
+
+        <div class="hidden xl:block border-l border-slate-200 pl-3">
+          <div id="readerEditionTitle" class="text-xs font-black text-slate-900 leading-tight">Main Edition</div>
+          <div id="readerDateTitle" class="text-[11px] font-extrabold text-red-600"></div>
+        </div>
+      </div>
+
+      <!-- Center: Desktop Page Number Buttons & Prev/Next -->
+      <div class="hidden lg:flex items-center gap-1 bg-slate-900 text-white px-2.5 py-1.5 rounded-xl shadow-inner">
+        <button id="prevPageBtn" class="p-1.5 rounded-lg hover:bg-slate-800 disabled:opacity-35 transition cursor-pointer" title="Previous Page">
+          <i data-lucide="chevron-left" class="w-4 h-4"></i>
+        </button>
+        <div id="desktopPagePills" class="flex items-center gap-1 px-2"></div>
+        <button id="nextPageBtn" class="p-1.5 rounded-lg hover:bg-slate-800 disabled:opacity-35 transition cursor-pointer" title="Next Page">
+          <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Right: Zoom, Paper Sound, 8-Point Crop Tool, PDF Download -->
+      <div class="flex items-center gap-2">
+        <div class="hidden md:flex items-center bg-slate-100 rounded-xl p-0.5 border border-slate-200">
+          <button id="zoomOutBtn" class="p-1.5 text-slate-700 hover:bg-white rounded-lg transition cursor-pointer" title="Zoom Out">
+            <i data-lucide="zoom-out" class="w-4 h-4"></i>
+          </button>
+          <button id="zoomResetBtn" class="px-2 text-xs font-extrabold text-slate-700 cursor-pointer" title="Reset Zoom">100%</button>
+          <button id="zoomInBtn" class="p-1.5 text-slate-700 hover:bg-white rounded-lg transition cursor-pointer" title="Zoom In">
+            <i data-lucide="zoom-in" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <!-- Paper Turn Audio Toggle -->
+        <button id="soundToggleBtn" class="p-2 rounded-xl border border-amber-200 bg-amber-50 text-amber-800 text-xs font-bold flex items-center gap-1 cursor-pointer transition" title="Toggle Paper Turn Sound">
+          <i data-lucide="volume-2" class="w-4 h-4 text-amber-600"></i>
+          <span class="hidden xl:inline">Sound</span>
+        </button>
+
+        <!-- 8-Point Clip & Share Button -->
+        <button id="cropToggleBtn" class="px-3.5 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-extrabold text-xs sm:text-sm flex items-center gap-1.5 shadow transition cursor-pointer">
+          <i data-lucide="scissors" class="w-4 h-4"></i>
+          <span id="cropToggleText">Clip & Share</span>
+        </button>
+
+        <!-- Full PDF Download -->
+        <a id="downloadPdfBtn" href="#" target="_blank" download class="hidden sm:flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white px-3 py-2 rounded-xl text-xs font-bold transition">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          <span class="hidden xl:inline">PDF</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Reader Workspace -->
+    <div class="flex-1 flex overflow-hidden relative">
+      <!-- Left Sidebar: High-Speed WebP Page Thumbnails + Sidebar Google Ad Unit -->
+      <aside class="hidden md:flex flex-col w-44 lg:w-52 bg-slate-950 border-r border-slate-800 overflow-y-auto p-3 gap-3 shrink-0">
+        <div class="flex items-center justify-between text-xs font-bold text-slate-400 uppercase tracking-wider px-1">
+          <span id="sidebarPagesCount">Pages</span>
+          <span class="text-[10px] bg-red-600/20 text-red-400 border border-red-500/30 px-1.5 py-0.5 rounded">HD WebP</span>
+        </div>
+        <div id="sidebarThumbnails" class="flex flex-col gap-3"></div>
+        <!-- Sidebar AdSense Slot -->
+        <div class="mt-2 pt-2 border-t border-slate-800">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-1059950253311579"
+               data-ad-slot="7406203456"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+      </aside>
+
+      <!-- Center OpenSeadragon DeepZoom Canvas + 8-Point Resizable Crop Overlay -->
+      <main class="flex-1 relative bg-slate-900 overflow-hidden flex items-center justify-center touch-none select-none overscroll-none" style="touch-action: none; overscroll-behavior: none;">
+        <div id="osdContainer" class="w-full h-full bg-slate-900"></div>
+
+        <!-- Floating Left/Right Page Turn Paddles -->
+        <button id="floatPrevBtn" class="hidden sm:flex absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-16 rounded-xl bg-slate-950/75 hover:bg-slate-950 text-white items-center justify-center shadow-xl border border-slate-700/70 transition cursor-pointer">
+          <i data-lucide="chevron-left" class="w-6 h-6"></i>
+        </button>
+        <button id="floatNextBtn" class="hidden sm:flex absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-16 rounded-xl bg-slate-950/75 hover:bg-slate-950 text-white items-center justify-center shadow-xl border border-slate-700/70 transition cursor-pointer">
+          <i data-lucide="chevron-right" class="w-6 h-6"></i>
+        </button>
+
+        <!-- 8-Point Interactive Crop Overlay (Jyothi E-Paper 60fps Engine) -->
+        <div id="cropOverlayWrapper" class="hidden absolute inset-0 z-40 pointer-events-none select-none touch-none overflow-hidden" style="touch-action: none;">
+          <div id="cropPageSpace" class="absolute pointer-events-none" style="will-change: left, top, width, height;">
+            <!-- Lightweight 4-Part Backdrop Mask (Zero 9999px Box-Shadow GPU Repaint Lag) -->
+            <div id="cropMaskTop" class="absolute left-0 right-0 top-0 bg-black/65 pointer-events-none"></div>
+            <div id="cropMaskBottom" class="absolute left-0 right-0 bottom-0 bg-black/65 pointer-events-none"></div>
+            <div id="cropMaskLeft" class="absolute left-0 bg-black/65 pointer-events-none"></div>
+            <div id="cropMaskRight" class="absolute right-0 bg-black/65 pointer-events-none"></div>
+
+            <!-- Interactive Draggable & Resizable Selection Box -->
+            <div
+              id="cropBoxEl"
+              class="pointer-events-auto cursor-move border-2 border-[#0099ff] bg-[#0099ff]/10 absolute touch-none select-none"
+              style="touch-action: none; user-select: none; will-change: left, top, width, height; transform: translateZ(0);"
+            >
+              <!-- 3x3 Rule-of-Thirds Alignment Grid (Jyothi CMS Style) -->
+              <div class="w-full h-full grid grid-cols-3 grid-rows-3 pointer-events-none">
+                <div class="border-r border-b border-dashed border-white/60"></div>
+                <div class="border-r border-b border-dashed border-white/60"></div>
+                <div class="border-b border-dashed border-white/60"></div>
+                <div class="border-r border-b border-dashed border-white/60"></div>
+                <div class="border-r border-b border-dashed border-white/60"></div>
+                <div class="border-b border-dashed border-white/60"></div>
+                <div class="border-r border-dashed border-white/60"></div>
+                <div class="border-r border-dashed border-white/60"></div>
+                <div></div>
+              </div>
+
+              <!-- Floating Crop & Cancel Action Pill (Auto-Flips Inside When Near Top Edge) -->
+              <div
+                id="cropActionToolbar"
+                class="absolute -top-11 left-0 flex items-center shadow-2xl rounded-lg overflow-hidden z-50 pointer-events-auto border border-white/25 whitespace-nowrap"
+                style="touch-action: manipulation;"
+              >
+                <button
+                  id="confirmCropBtn"
+                  type="button"
+                  class="bg-[#28a745] hover:bg-[#218838] active:bg-[#1e7e34] text-white px-3 sm:px-3.5 py-1.5 font-extrabold text-xs sm:text-sm flex items-center gap-1.5 transition cursor-pointer"
+                >
+                  <i data-lucide="scissors" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+                  <span>Crop &amp; Share</span>
+                </button>
+                <button
+                  id="cancelCropBtn"
+                  type="button"
+                  class="bg-gray-900/95 hover:bg-black text-white px-2.5 py-1.5 font-bold text-xs sm:text-sm flex items-center justify-center transition border-l border-white/15 cursor-pointer"
+                  title="Close Crop Tool"
+                >
+                  <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+
+              <!-- 8 Touch-Friendly Resize Handles (28px Hit Target + Crisp Inner Square) -->
+              <div data-handle="nw" class="crop-handle absolute -top-3.5 -left-3.5 w-7 h-7 flex items-center justify-center cursor-nwse-resize z-30 touch-none" style="touch-action: none;">
+                <div class="w-4 h-4 bg-[#0099ff] border-2 border-white rounded-xs shadow-md"></div>
+              </div>
+              <div data-handle="n" class="crop-handle absolute -top-3.5 left-1/2 -translate-x-1/2 w-8 h-7 flex items-center justify-center cursor-ns-resize z-30 touch-none" style="touch-action: none;">
+                <div class="w-4 h-4 bg-[#0099ff] border-2 border-white rounded-xs shadow-md"></div>
+              </div>
+              <div data-handle="ne" class="crop-handle absolute -top-3.5 -right-3.5 w-7 h-7 flex items-center justify-center cursor-nesw-resize z-30 touch-none" style="touch-action: none;">
+                <div class="w-4 h-4 bg-[#0099ff] border-2 border-white rounded-xs shadow-md"></div>
+              </div>
+              <div data-handle="e" class="crop-handle absolute top-1/2 -right-3.5 -translate-y-1/2 w-7 h-8 flex items-center justify-center cursor-ew-resize z-30 touch-none" style="touch-action: none;">
+                <div class="w-4 h-4 bg-[#0099ff] border-2 border-white rounded-xs shadow-md"></div>
+              </div>
+              <div data-handle="se" class="crop-handle absolute -bottom-3.5 -right-3.5 w-7 h-7 flex items-center justify-center cursor-nwse-resize z-30 touch-none" style="touch-action: none;">
+                <div class="w-4 h-4 bg-[#0099ff] border-2 border-white rounded-xs shadow-md"></div>
+              </div>
+              <div data-handle="s" class="crop-handle absolute -bottom-3.5 left-1/2 -translate-x-1/2 w-8 h-7 flex items-center justify-center cursor-ns-resize z-30 touch-none" style="touch-action: none;">
+                <div class="w-4 h-4 bg-[#0099ff] border-2 border-white rounded-xs shadow-md"></div>
+              </div>
+              <div data-handle="sw" class="crop-handle absolute -bottom-3.5 -left-3.5 w-7 h-7 flex items-center justify-center cursor-nesw-resize z-30 touch-none" style="touch-action: none;">
+                <div class="w-4 h-4 bg-[#0099ff] border-2 border-white rounded-xs shadow-md"></div>
+              </div>
+              <div data-handle="w" class="crop-handle absolute top-1/2 -left-3.5 -translate-y-1/2 w-7 h-8 flex items-center justify-center cursor-ew-resize z-30 touch-none" style="touch-action: none;">
+                <div class="w-4 h-4 bg-[#0099ff] border-2 border-white rounded-xs shadow-md"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reader Loading Spinner -->
+        <div id="loadingOverlay" class="hidden absolute inset-0 z-50 bg-slate-950/80 flex flex-col items-center justify-center gap-3 text-white">
+          <div class="w-11 h-11 border-4 border-red-600 border-t-transparent rounded-full animate-spin"></div>
+          <p id="loadingText" class="text-sm font-bold">Opening Vibhare Digital Broadsheet...</p>
+        </div>
+      </main>
+    </div>
+
+    <!-- Mobile Bottom Navigation Dock -->
+    <nav class="md:hidden bg-slate-950 text-white border-t border-slate-800 px-2 py-2 flex items-center justify-around z-40 shrink-0">
+      <button id="mobPrevBtn" class="flex flex-col items-center gap-0.5 px-2 py-1">
+        <i data-lucide="chevron-left" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold">Prev</span>
+      </button>
+      <button id="mobPagesBtn" class="flex flex-col items-center gap-0.5 px-3 py-1 rounded-lg bg-slate-800">
+        <i data-lucide="grid" class="w-4 h-4 text-amber-400"></i>
+        <span id="mobPageIndicator" class="text-[10px] font-bold">Page 1</span>
+      </button>
+      <button id="mobCropBtn" class="flex flex-col items-center gap-0.5 px-3.5 py-1 rounded-lg bg-red-600 text-white font-bold">
+        <i data-lucide="scissors" class="w-4 h-4"></i>
+        <span class="text-[10px]">Clip</span>
+      </button>
+      <button id="mobArchiveBtn" class="flex flex-col items-center gap-0.5 px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300">
+        <i data-lucide="calendar" class="w-4 h-4"></i>
+        <span class="text-[10px] font-bold">Old Editions</span>
+      </button>
+      <button id="mobNextBtn" class="flex flex-col items-center gap-0.5 px-2 py-1">
+        <i data-lucide="chevron-right" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold">Next</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Old Editions Archive Modal (Accessible anytime from inside the Reader!) -->
+  <div id="archiveDrawerModal" class="hidden fixed inset-0 z-[65] bg-slate-950/80 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6">
+    <div class="bg-white text-slate-900 rounded-2xl max-w-4xl w-full max-h-[88vh] flex flex-col shadow-2xl overflow-hidden border border-slate-200">
+      <div class="px-5 py-4 bg-slate-900 text-white flex items-center justify-between">
+        <div>
+          <h3 class="font-black text-base sm:text-lg flex items-center gap-2">
+            <i data-lucide="calendar" class="w-5 h-5 text-red-500"></i>
+            <span>Old Editions &amp; Date Selector</span>
+          </h3>
+          <p class="text-xs text-slate-300">Select any date below to switch to that day's E-Paper immediately</p>
+        </div>
+        <button id="closeArchiveModalBtn" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-extrabold flex items-center gap-1 cursor-pointer">
+          <i data-lucide="x" class="w-3.5 h-3.5"></i>
+          <span>Close</span>
+        </button>
+      </div>
+      <div class="p-4 bg-slate-100 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <label class="text-xs font-extrabold text-slate-700">Jump to Date:</label>
+          <input id="modalDateInput" type="date" class="px-3 py-1.5 rounded-xl bg-white border border-slate-300 text-xs font-extrabold text-slate-900" />
+        </div>
+        <button id="modalGoHomeBtn" class="px-3.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-extrabold cursor-pointer">
+          View All Editions Homepage
+        </button>
+      </div>
+      <div id="archiveModalGrid" class="p-4 overflow-y-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 flex-1 bg-slate-50"></div>
+    </div>
+  </div>
+
+  <!-- Branded Clip Preview & WhatsApp Share Modal -->
+  <div id="clipModal" class="hidden fixed inset-0 z-[60] bg-slate-950/85 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white text-slate-900 rounded-2xl max-w-xl w-full overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+      <div class="px-5 py-3.5 bg-red-600 text-white flex items-center justify-between">
+        <div>
+          <h3 class="font-extrabold text-sm sm:text-base">Vibhare Telugu Daily • Article Clipping</h3>
+          <p id="clipModalSub" class="text-xs opacity-90"></p>
+        </div>
+        <button id="closeClipModalBtn" class="p-1.5 rounded-lg bg-black/20 hover:bg-black/30 text-white cursor-pointer" title="Close Preview">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <div class="p-4 bg-slate-100 overflow-y-auto flex-1 flex items-center justify-center">
+        <img id="clipResultImg" src="" alt="Vibhare Clipping" class="max-h-[58vh] w-auto object-contain rounded-lg shadow-md border border-slate-300 bg-white" />
+      </div>
+      <div class="p-4 bg-white border-t border-slate-200 flex items-center gap-3">
+        <a id="whatsappShareBtn" href="#" target="_blank" class="flex-1 bg-[#25D366] hover:bg-[#1EBE5D] text-white font-extrabold text-xs sm:text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow transition">
+          <i data-lucide="share-2" class="w-4 h-4"></i>
+          <span>Share on WhatsApp</span>
+        </a>
+        <a id="downloadClipBtn" href="#" download class="bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs sm:text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          <span>Download Image</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Page Thumbnails Drawer -->
+  <div id="mobThumbsModal" class="hidden fixed inset-0 z-[60] bg-slate-950/85 flex flex-col justify-end md:hidden">
+    <div class="bg-slate-900 border-t border-slate-800 rounded-t-2xl p-4 max-h-[75vh] overflow-y-auto">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-sm font-bold text-white">Jump to Page</h3>
+        <button id="closeMobThumbsBtn" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 text-xs">Close</button>
+      </div>
+      <div id="mobThumbsGrid" class="grid grid-cols-3 gap-3"></div>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    let allArchiveIssues = [];
+    let allEditions = [];
+    let selectedEditionSlug = "";
+    let selectedYearFilter = "";
+    let selectedMonthFilter = "";
+    let selectedDateFilter = "";
+    let currentHomePage = 1;
+    const itemsPerPage = 12;
+
+    let viewer = null;
+    let currentIssue = null;
+    let currentPageIdx = 0;
+    let soundEnabled = true;
+    let isCropMode = false;
+    let pageBounds = null;
+    let cropBox = { x: 0.08, y: 0.18, width: 0.84, height: 0.48 };
+    const flipAudio = new Audio("assets/page-flip.mp3");
+    flipAudio.volume = 0.65;
+
+    function formatDisplayDate(isoDate) {
+      try {
+        const [y, m, d] = isoDate.split("-").map(Number);
+        const dt = new Date(y, m - 1, d);
+        return dt.toLocaleDateString("en-IN", {
+          weekday: "short",
+          day: "2-digit",
+          month: "short",
+          year: "numeric"
+        });
+      } catch {
+        return isoDate;
+      }
+    }
+
+    function playTurnSound() {
+      if (!soundEnabled) return;
+      try {
+        flipAudio.currentTime = 0;
+        flipAudio.play().catch(() => {});
+      } catch (e) {}
+    }
+
+    // Initialize Homepage Data (Editions + Archive Issues)
+    async function initHomePage() {
+      try {
+        const [cfgRes, archRes] = await Promise.all([
+          fetch("api/index.php?action=config"),
+          fetch("api/index.php?action=archive")
+        ]);
+
+        if (cfgRes.ok) {
+          const cfg = await cfgRes.json();
+          allEditions = cfg.editions || [];
+          const edFilter = document.getElementById("homeEditionFilter");
+          allEditions.forEach((ed) => {
+            const opt = document.createElement("option");
+            opt.value = ed.slug;
+            opt.textContent = ed.name;
+            edFilter.appendChild(opt);
+          });
+        }
+
+        if (archRes.ok) {
+          allArchiveIssues = await archRes.json();
+        }
+
+        populateYearFilter();
+        renderQuickDatePills();
+        renderIssueCards();
+
+        // Check if URL has ?issue_id= or ?date= to deep-link directly into reader
+        const params = new URLSearchParams(window.location.search);
+        const directIssueId = Number(params.get("issue_id") || 0);
+        const directDate = params.get("date") || "";
+        if (directIssueId > 0) {
+          openReaderForIssue({ issueId: directIssueId });
+        } else if (directDate) {
+          openReaderForIssue({ date: directDate, edition: params.get("edition") || "main" });
+        }
+      } finally {
+        document.getElementById("homeLoading").classList.add("hidden");
+      }
+    }
+
+    document.getElementById("openLatestBtn").onclick = () => {
+      if (allArchiveIssues.length > 0) {
+        openReaderForIssue({ date: allArchiveIssues[0].publication_date, edition: allArchiveIssues[0].edition_slug || "main" });
+      }
+    };
+
+    function populateYearFilter() {
+      const yearSelect = document.getElementById("homeYearFilter");
+      yearSelect.innerHTML = `<option value="">All Years</option>`;
+      const years = [...new Set(allArchiveIssues.map((i) => (i.publication_date || "").slice(0, 4)).filter(Boolean))].sort().reverse();
+      years.forEach((yr) => {
+        const opt = document.createElement("option");
+        opt.value = yr;
+        opt.textContent = yr;
+        yearSelect.appendChild(opt);
+      });
+    }
+
+    function renderQuickDatePills() {
+      const bar = document.getElementById("quickDatesBar");
+      bar.innerHTML = "";
+      const uniqueDates = [...new Set(allArchiveIssues.map((i) => i.publication_date))].slice(0, 10);
+
+      const allBtn = document.createElement("button");
+      allBtn.className = `px-3 py-1 rounded-xl text-[11px] sm:text-xs font-extrabold whitespace-nowrap transition cursor-pointer ${
+        !selectedDateFilter
+          ? "bg-red-600 text-white shadow-2xs"
+          : "bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200"
+      }`;
+      allBtn.textContent = "All Dates";
+      allBtn.onclick = () => {
+        selectedDateFilter = "";
+        currentHomePage = 1;
+        document.getElementById("homeDateFilter").value = "";
+        document.getElementById("clearDateFilterBtn").classList.add("hidden");
+        renderQuickDatePills();
+        renderIssueCards();
+      };
+      bar.appendChild(allBtn);
+
+      uniqueDates.forEach((dt) => {
+        const btn = document.createElement("button");
+        const active = selectedDateFilter === dt;
+        btn.className = `px-3 py-1 rounded-xl text-[11px] sm:text-xs font-extrabold whitespace-nowrap transition cursor-pointer ${
+          active
+            ? "bg-red-600 text-white shadow-2xs"
+            : "bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200"
+        }`;
+        btn.textContent = formatDisplayDate(dt);
+        btn.onclick = () => {
+          selectedDateFilter = dt;
+          currentHomePage = 1;
+          document.getElementById("homeDateFilter").value = dt;
+          document.getElementById("clearDateFilterBtn").classList.remove("hidden");
+          renderQuickDatePills();
+          renderIssueCards();
+        };
+        bar.appendChild(btn);
+      });
+    }
+
+    function renderIssueCards() {
+      const grid = document.getElementById("issuesCardsGrid");
+      const emptyEl = document.getElementById("homeEmpty");
+      const badgeEl = document.getElementById("issuesCountBadge");
+      const paginationContainer = document.getElementById("paginationContainer");
+      const paginationSummary = document.getElementById("paginationSummary");
+      const paginationButtons = document.getElementById("paginationButtons");
+      grid.innerHTML = "";
+
+      const filtered = allArchiveIssues.filter((item) => {
+        if (selectedEditionSlug && item.edition_slug !== selectedEditionSlug) return false;
+        if (selectedDateFilter && item.publication_date !== selectedDateFilter) return false;
+        if (selectedYearFilter && !(item.publication_date || "").startsWith(selectedYearFilter)) return false;
+        if (selectedMonthFilter && (item.publication_date || "").slice(5, 7) !== selectedMonthFilter) return false;
+        return true;
+      });
+
+      badgeEl.textContent = `${filtered.length} ${filtered.length === 1 ? "Edition" : "Editions"}`;
+
+      if (filtered.length === 0) {
+        emptyEl.classList.remove("hidden");
+        paginationContainer.classList.add("hidden");
+        return;
+      }
+      emptyEl.classList.add("hidden");
+
+      const totalPages = Math.max(1, Math.ceil(filtered.length / itemsPerPage));
+      if (currentHomePage > totalPages) currentHomePage = totalPages;
+      const startIdx = (currentHomePage - 1) * itemsPerPage;
+      const slice = filtered.slice(startIdx, startIdx + itemsPerPage);
+
+      slice.forEach((item, idx) => {
+        const globalIdx = startIdx + idx;
+        const card = document.createElement("div");
+        card.className = "group bg-white rounded-2xl border border-slate-200 hover:border-red-600 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-200 flex flex-col cursor-pointer";
+        card.onclick = () => openReaderForIssue({ date: item.publication_date, edition: item.edition_slug || "main" });
+
+        const isLatest = globalIdx === 0 && !selectedDateFilter && !selectedYearFilter && !selectedMonthFilter;
+
+        card.innerHTML = `
+          <div class="relative aspect-[2/3] w-full bg-slate-100 overflow-hidden border-b border-slate-100">
+            ${
+              item.thumbnail_url
+                ? `<img src="${item.thumbnail_url}" alt="${item.publication_date}" class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-300" loading="lazy" />`
+                : `<div class="w-full h-full flex items-center justify-center text-slate-400 text-xs font-bold">Page 1 Preview</div>`
+            }
+            ${
+              isLatest
+                ? `<span class="absolute top-2 left-2 sm:top-3 sm:left-3 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-red-600 text-white text-[9px] sm:text-[10px] font-black uppercase tracking-wider shadow">Latest</span>`
+                : ``
+            }
+            <span class="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg bg-slate-950/80 text-white text-[10px] sm:text-[11px] font-extrabold backdrop-blur-xs">
+              ${item.page_count} Pages
+            </span>
+          </div>
+          <div class="p-2.5 sm:p-4 flex flex-col flex-1 justify-between gap-2">
+            <div>
+              <div class="text-[10px] sm:text-xs font-extrabold text-red-600 uppercase tracking-wide">
+                Main Edition
+              </div>
+              <h3 class="text-xs sm:text-base font-black text-slate-900 mt-0.5 group-hover:text-red-600 transition leading-snug">
+                ${formatDisplayDate(item.publication_date)}
+              </h3>
+            </div>
+            <div class="flex items-center gap-1.5 pt-1">
+              <button type="button" class="flex-1 py-2 sm:py-2.5 px-2 sm:px-3 rounded-xl bg-slate-900 group-hover:bg-red-600 text-white font-extrabold text-[11px] sm:text-xs flex items-center justify-center gap-1.5 transition shadow-2xs cursor-pointer">
+                <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+                <span>Read</span>
+              </button>
+              ${
+                item.pdf_url
+                  ? `<a href="${item.pdf_url}" target="_blank" download onclick="event.stopPropagation();" class="py-2 sm:py-2.5 px-2.5 sm:px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold text-[11px] sm:text-xs flex items-center justify-center transition" title="Download PDF"><i data-lucide="download" class="w-3.5 h-3.5"></i></a>`
+                  : ``
+              }
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      // Initialize newly inserted Lucide icons inside cards
+      lucide.createIcons();
+
+      // Render Numbered Pagination Controls
+      if (totalPages > 1) {
+        paginationContainer.classList.remove("hidden");
+        paginationSummary.textContent = `Showing Page ${currentHomePage} of ${totalPages} (${filtered.length} Editions)`;
+        paginationButtons.innerHTML = "";
+
+        const createPageBtn = (label, targetPage, isActive = false, isDisabled = false) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.disabled = isDisabled;
+          btn.className = `px-3 py-1.5 rounded-xl text-xs font-extrabold transition cursor-pointer ${
+            isActive
+              ? "bg-red-600 text-white shadow-xs"
+              : isDisabled
+              ? "bg-slate-100 text-slate-400 cursor-not-allowed"
+              : "bg-slate-100 hover:bg-slate-200 text-slate-800"
+          }`;
+          btn.textContent = label;
+          if (!isDisabled && !isActive) {
+            btn.onclick = () => {
+              currentHomePage = targetPage;
+              renderIssueCards();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            };
+          }
+          return btn;
+        };
+
+        paginationButtons.appendChild(createPageBtn("← Prev", currentHomePage - 1, false, currentHomePage === 1));
+
+        // Page numbers window
+        let startPage = Math.max(1, currentHomePage - 2);
+        let endPage = Math.min(totalPages, startPage + 4);
+        if (endPage - startPage < 4) {
+          startPage = Math.max(1, endPage - 4);
+        }
+
+        if (startPage > 1) {
+          paginationButtons.appendChild(createPageBtn("1", 1, currentHomePage === 1));
+          if (startPage > 2) {
+            const dots = document.createElement("span");
+            dots.className = "px-1 text-xs font-bold text-slate-400";
+            dots.textContent = "...";
+            paginationButtons.appendChild(dots);
+          }
+        }
+
+        for (let p = startPage; p <= endPage; p++) {
+          paginationButtons.appendChild(createPageBtn(String(p), p, p === currentHomePage));
+        }
+
+        if (endPage < totalPages) {
+          if (endPage < totalPages - 1) {
+            const dots = document.createElement("span");
+            dots.className = "px-1 text-xs font-bold text-slate-400";
+            dots.textContent = "...";
+            paginationButtons.appendChild(dots);
+          }
+          paginationButtons.appendChild(createPageBtn(String(totalPages), totalPages, currentHomePage === totalPages));
+        }
+
+        paginationButtons.appendChild(createPageBtn("Next →", currentHomePage + 1, false, currentHomePage === totalPages));
+      } else {
+        paginationContainer.classList.add("hidden");
+      }
+    }
+
+    // Filters Event Listeners
+    document.getElementById("homeEditionFilter").addEventListener("change", (e) => {
+      selectedEditionSlug = e.target.value;
+      currentHomePage = 1;
+      renderIssueCards();
+    });
+
+    document.getElementById("homeYearFilter").addEventListener("change", (e) => {
+      selectedYearFilter = e.target.value;
+      selectedDateFilter = "";
+      currentHomePage = 1;
+      document.getElementById("homeDateFilter").value = "";
+      renderQuickDatePills();
+      renderIssueCards();
+    });
+
+    document.getElementById("homeMonthFilter").addEventListener("change", (e) => {
+      selectedMonthFilter = e.target.value;
+      selectedDateFilter = "";
+      currentHomePage = 1;
+      document.getElementById("homeDateFilter").value = "";
+      renderQuickDatePills();
+      renderIssueCards();
+    });
+
+    document.getElementById("homeDateFilter").addEventListener("change", (e) => {
+      selectedDateFilter = e.target.value;
+      currentHomePage = 1;
+      if (selectedDateFilter) {
+        selectedYearFilter = "";
+        selectedMonthFilter = "";
+        document.getElementById("homeYearFilter").value = "";
+        document.getElementById("homeMonthFilter").value = "";
+        document.getElementById("clearDateFilterBtn").classList.remove("hidden");
+      } else {
+        document.getElementById("clearDateFilterBtn").classList.add("hidden");
+      }
+      renderQuickDatePills();
+      renderIssueCards();
+    });
+
+    document.getElementById("clearDateFilterBtn").onclick = () => {
+      selectedDateFilter = "";
+      selectedYearFilter = "";
+      selectedMonthFilter = "";
+      currentHomePage = 1;
+      document.getElementById("homeDateFilter").value = "";
+      document.getElementById("homeYearFilter").value = "";
+      document.getElementById("homeMonthFilter").value = "";
+      document.getElementById("clearDateFilterBtn").classList.add("hidden");
+      renderQuickDatePills();
+      renderIssueCards();
+    };
+
+    document.getElementById("resetFiltersBtn").onclick = () => {
+      selectedEditionSlug = "";
+      selectedDateFilter = "";
+      selectedYearFilter = "";
+      selectedMonthFilter = "";
+      currentHomePage = 1;
+      document.getElementById("homeEditionFilter").value = "";
+      document.getElementById("homeDateFilter").value = "";
+      document.getElementById("homeYearFilter").value = "";
+      document.getElementById("homeMonthFilter").value = "";
+      document.getElementById("clearDateFilterBtn").classList.add("hidden");
+      renderQuickDatePills();
+      renderIssueCards();
+    };
+
+    // Direct Date Picker & Archive Drawer inside Reader
+    document.getElementById("readerDateInput").addEventListener("change", (e) => {
+      const dt = e.target.value;
+      if (dt) {
+        openReaderForIssue({ date: dt, edition: currentIssue?.edition_slug || "main" });
+      }
+    });
+
+    function openArchiveDrawer() {
+      const modal = document.getElementById("archiveDrawerModal");
+      const grid = document.getElementById("archiveModalGrid");
+      modal.classList.remove("hidden");
+      grid.innerHTML = "";
+      if (currentIssue?.publication_date) {
+        document.getElementById("modalDateInput").value = currentIssue.publication_date;
+      }
+
+      allArchiveIssues.forEach((item) => {
+        const card = document.createElement("div");
+        const isCurrent = currentIssue && item.publication_date === currentIssue.publication_date;
+        card.className = `bg-white rounded-xl border p-2.5 flex flex-col gap-2 cursor-pointer transition hover:shadow-md ${
+          isCurrent ? "border-red-600 ring-2 ring-red-500/30" : "border-slate-200 hover:border-red-500"
+        }`;
+        card.onclick = () => {
+          modal.classList.add("hidden");
+          openReaderForIssue({ date: item.publication_date, edition: item.edition_slug || "main" });
+        };
+        card.innerHTML = `
+          <div class="aspect-[2/3] w-full bg-slate-100 rounded-lg overflow-hidden border border-slate-100">
+            ${
+              item.thumbnail_url
+                ? `<img src="${item.thumbnail_url}" alt="${item.publication_date}" class="w-full h-full object-cover object-top" loading="lazy" />`
+                : `<div class="w-full h-full flex items-center justify-center text-xs text-slate-400 font-bold">${item.publication_date}</div>`
+            }
+          </div>
+          <div>
+            <div class="text-xs font-black text-slate-900">${formatDisplayDate(item.publication_date)}</div>
+            <div class="text-[10px] font-bold text-slate-500">${item.publication_date} • ${item.page_count} Pages</div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    document.getElementById("openArchiveModalBtn").onclick = openArchiveDrawer;
+    document.getElementById("mobArchiveBtn").onclick = openArchiveDrawer;
+    document.getElementById("closeArchiveModalBtn").onclick = () => {
+      document.getElementById("archiveDrawerModal").classList.add("hidden");
+    };
+    document.getElementById("modalDateInput").addEventListener("change", (e) => {
+      const dt = e.target.value;
+      if (dt) {
+        document.getElementById("archiveDrawerModal").classList.add("hidden");
+        openReaderForIssue({ date: dt, edition: currentIssue?.edition_slug || "main" });
+      }
+    });
+    document.getElementById("modalGoHomeBtn").onclick = () => {
+      document.getElementById("archiveDrawerModal").classList.add("hidden");
+      closeReaderBackToHome();
+    };
+
+    // Open Reader View for Specific Issue
+    async function openReaderForIssue({ issueId = 0, edition = "main", date = "" } = {}) {
+      document.getElementById("readerView").classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+
+      if (!viewer) {
+        initOSD();
+      }
+
+      const loadingEl = document.getElementById("loadingOverlay");
+      loadingEl.classList.remove("hidden");
+      setCropMode(false);
+
+      try {
+        let url = `api/index.php?action=issue&edition=${encodeURIComponent(edition)}`;
+        if (date) url += `&date=${encodeURIComponent(date)}`;
+        if (issueId) url += `&issue_id=${issueId}`;
+
+        const res = await fetch(url);
+        if (!res.ok) {
+          alert(`No E-Paper found for date ${date}. Opening the Old Editions Archive selector.`);
+          loadingEl.classList.add("hidden");
+          openArchiveDrawer();
+          return;
+        }
+        currentIssue = await res.json();
+        document.getElementById("readerEditionTitle").textContent = currentIssue.edition_name;
+        document.getElementById("readerDateTitle").textContent = formatDisplayDate(currentIssue.publication_date);
+        document.getElementById("readerDateInput").value = currentIssue.publication_date;
+
+        const pdfBtn = document.getElementById("downloadPdfBtn");
+        if (currentIssue.pdf_url) {
+          pdfBtn.href = currentIssue.pdf_url;
+        }
+
+        const editionParam = currentIssue.edition_slug && currentIssue.edition_slug !== "main" ? `&edition=${encodeURIComponent(currentIssue.edition_slug)}` : "";
+        const newUrl = `${window.location.pathname}?date=${encodeURIComponent(currentIssue.publication_date)}${editionParam}`;
+        window.history.pushState({ date: currentIssue.publication_date, edition: currentIssue.edition_slug }, "", newUrl);
+
+        renderThumbnailsAndPills();
+        goToPage(0, false);
+      } finally {
+        loadingEl.classList.add("hidden");
+      }
+    }
+
+    function closeReaderBackToHome() {
+      setCropMode(false);
+      document.getElementById("readerView").classList.add("hidden");
+      document.body.style.overflow = "";
+      window.history.pushState({}, "", window.location.pathname);
+    }
+
+    document.getElementById("backToHomeBtn").onclick = closeReaderBackToHome;
+
+    window.addEventListener("popstate", () => {
+      const params = new URLSearchParams(window.location.search);
+      if (!params.get("issue_id") && !params.get("date")) {
+        document.getElementById("readerView").classList.add("hidden");
+        document.body.style.overflow = "";
+      }
+    });
+
+    function initOSD() {
+      viewer = OpenSeadragon({
+        id: "osdContainer",
+        prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.1/images/",
+        animationTime: 0.1,
+        blendTime: 0.0,
+        constrainDuringPan: true,
+        maxZoomPixelRatio: 4.0,
+        minZoomImageRatio: 0.9,
+        visibilityRatio: 1.0,
+        imageLoaderLimit: 8,
+        showNavigationControl: false,
+        gestureSettingsMouse: { clickToZoom: false, dblClickToZoom: false },
+        gestureSettingsTouch: { clickToZoom: false, dblClickToZoom: false, pinchToZoom: true }
+      });
+
+      viewer.addHandler("open", () => {
+        if (window.innerWidth < 768) {
+          viewer.viewport.fitHorizontally(true);
+          const b = viewer.viewport.getBounds();
+          viewer.viewport.panTo(new OpenSeadragon.Point(b.getCenter().x, b.height / 2), true);
+        } else {
+          viewer.viewport.goHome(true);
+        }
+        if (isCropMode) updatePageBounds();
+      });
+
+      viewer.addHandler("zoom", () => {
+        const homeZ = viewer.viewport.getHomeZoom();
+        const curZ = viewer.viewport.getZoom();
+        const pct = homeZ > 0 ? Math.round((curZ / homeZ) * 100) : 100;
+        document.getElementById("zoomResetBtn").textContent = pct + "%";
+        if (isCropMode) updatePageBounds();
+      });
+
+      window.addEventListener("resize", () => {
+        if (isCropMode) updatePageBounds();
+      });
+    }
+
+    function updatePageBounds() {
+      if (!viewer || viewer.world.getItemCount() === 0) return;
+      const item = viewer.world.getItemAt(0);
+      if (!item) return;
+      const b = item.getBounds(true);
+      const p0 = viewer.viewport.pixelFromPoint(new OpenSeadragon.Point(b.x, b.y), true);
+      const p1 = viewer.viewport.pixelFromPoint(new OpenSeadragon.Point(b.x + b.width, b.y + b.height), true);
+      const w = p1.x - p0.x;
+      const h = p1.y - p0.y;
+      if (w > 10 && h > 10) {
+        pageBounds = { left: Math.round(p0.x), top: Math.round(p0.y), width: Math.round(w), height: Math.round(h) };
+        const space = document.getElementById("cropPageSpace");
+        space.style.left = pageBounds.left + "px";
+        space.style.top = pageBounds.top + "px";
+        space.style.width = pageBounds.width + "px";
+        space.style.height = pageBounds.height + "px";
+        renderCropBox();
+      }
+    }
+
+    const cropBoxEl = document.getElementById("cropBoxEl");
+    const cropMaskTop = document.getElementById("cropMaskTop");
+    const cropMaskBottom = document.getElementById("cropMaskBottom");
+    const cropMaskLeft = document.getElementById("cropMaskLeft");
+    const cropMaskRight = document.getElementById("cropMaskRight");
+    const cropActionToolbar = document.getElementById("cropActionToolbar");
+    let toolbarInside = false;
+
+    function renderCropBox() {
+      const leftPct = cropBox.x * 100;
+      const topPct = cropBox.y * 100;
+      const widthPct = cropBox.width * 100;
+      const heightPct = cropBox.height * 100;
+      const bottomPct = 100 - (topPct + heightPct);
+      const rightPct = 100 - (leftPct + widthPct);
+
+      cropBoxEl.style.left = leftPct + "%";
+      cropBoxEl.style.top = topPct + "%";
+      cropBoxEl.style.width = widthPct + "%";
+      cropBoxEl.style.height = heightPct + "%";
+
+      // Update lightweight 4-part backdrop mask (zero box-shadow repaint lag)
+      cropMaskTop.style.height = Math.max(0, topPct) + "%";
+      cropMaskBottom.style.height = Math.max(0, bottomPct) + "%";
+      cropMaskLeft.style.top = topPct + "%";
+      cropMaskLeft.style.height = heightPct + "%";
+      cropMaskLeft.style.width = Math.max(0, leftPct) + "%";
+      cropMaskRight.style.top = topPct + "%";
+      cropMaskRight.style.height = heightPct + "%";
+      cropMaskRight.style.width = Math.max(0, rightPct) + "%";
+
+      // Auto-flip action bar inside crop box when near top edge (Jyothi CMS behavior)
+      const shouldBeInside = cropBox.y < 0.08;
+      if (shouldBeInside !== toolbarInside) {
+        toolbarInside = shouldBeInside;
+        if (shouldBeInside) {
+          cropActionToolbar.classList.remove("-top-11", "left-0");
+          cropActionToolbar.classList.add("top-2", "left-2");
+        } else {
+          cropActionToolbar.classList.remove("top-2", "left-2");
+          cropActionToolbar.classList.add("-top-11", "left-0");
+        }
+      }
+    }
+
+    function setCropMode(active) {
+      isCropMode = active;
+      const wrapper = document.getElementById("cropOverlayWrapper");
+      const textEl = document.getElementById("cropToggleText");
+      if (active) {
+        // Default initial selection box centered nicely like Jyothi E-Paper
+        cropBox = { x: 0.08, y: 0.18, width: 0.84, height: 0.48 };
+        if (viewer) {
+          viewer.addHandler("pan", updatePageBounds);
+          viewer.addHandler("animation", updatePageBounds);
+        }
+        updatePageBounds();
+        requestAnimationFrame(updatePageBounds);
+        setTimeout(updatePageBounds, 50);
+        wrapper.classList.remove("hidden");
+        textEl.textContent = "Exit Clip";
+      } else {
+        if (viewer) {
+          viewer.removeHandler("pan", updatePageBounds);
+          viewer.removeHandler("animation", updatePageBounds);
+          viewer.setMouseNavEnabled(true);
+        }
+        wrapper.classList.add("hidden");
+        textEl.textContent = "Clip & Share";
+      }
+    }
+
+    // 8-Point Drag & Resize Logic (Jyothi E-Paper 60fps Engine with Pointer Capture & OSD Lock)
+    (function setupCropDrag() {
+      const boxEl = document.getElementById("cropBoxEl");
+      let dragState = null;
+
+      function onStart(e, type) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Pause OpenSeadragon canvas pan/zoom while dragging crop box or handles
+        if (viewer) viewer.setMouseNavEnabled(false);
+
+        try {
+          if (e.pointerId !== undefined && boxEl.setPointerCapture) {
+            boxEl.setPointerCapture(e.pointerId);
+          }
+        } catch (_) {}
+
+        const spaceRect = document.getElementById("cropPageSpace").getBoundingClientRect();
+        dragState = {
+          type,
+          pointerId: e.pointerId,
+          startX: e.clientX,
+          startY: e.clientY,
+          startBox: { ...cropBox },
+          cw: Math.max(20, spaceRect.width),
+          ch: Math.max(20, spaceRect.height),
+        };
+        window.addEventListener("pointermove", onMove, { passive: false });
+        window.addEventListener("pointerup", onEnd, { passive: false });
+        window.addEventListener("pointercancel", onEnd, { passive: false });
+      }
+
+      function onMove(e) {
+        if (!dragState) return;
+        e.preventDefault();
+        const dx = (e.clientX - dragState.startX) / dragState.cw;
+        const dy = (e.clientY - dragState.startY) / dragState.ch;
+        const s = dragState.startBox;
+        const MIN = 0.05;
+        let { x, y, width: w, height: h } = s;
+
+        if (dragState.type === "move") {
+          x = Math.max(0, Math.min(1 - w, s.x + dx));
+          y = Math.max(0, Math.min(1 - h, s.y + dy));
+        } else {
+          if (dragState.type.includes("w")) {
+            const nw = s.width - dx;
+            if (nw >= MIN && s.x + dx >= 0) { x = s.x + dx; w = nw; }
+          } else if (dragState.type.includes("e")) {
+            const nw = s.width + dx;
+            if (nw >= MIN && s.x + nw <= 1) { w = nw; }
+          }
+          if (dragState.type.includes("n")) {
+            const nh = s.height - dy;
+            if (nh >= MIN && s.y + dy >= 0) { y = s.y + dy; h = nh; }
+          } else if (dragState.type.includes("s")) {
+            const nh = s.height + dy;
+            if (nh >= MIN && s.y + nh <= 1) { h = nh; }
+          }
+        }
+        cropBox = { x, y, width: w, height: h };
+        renderCropBox();
+      }
+
+      function onEnd(e) {
+        if (dragState && dragState.pointerId !== undefined) {
+          try {
+            if (boxEl.releasePointerCapture) {
+              boxEl.releasePointerCapture(dragState.pointerId);
+            }
+          } catch (_) {}
+        }
+        dragState = null;
+        if (viewer) viewer.setMouseNavEnabled(true);
+        window.removeEventListener("pointermove", onMove);
+        window.removeEventListener("pointerup", onEnd);
+        window.removeEventListener("pointercancel", onEnd);
+      }
+
+      boxEl.addEventListener("pointerdown", (e) => {
+        if (e.target.closest("button")) return;
+        const handle = e.target.closest(".crop-handle");
+        if (handle) {
+          onStart(e, handle.getAttribute("data-handle"));
+        } else {
+          onStart(e, "move");
+        }
+      });
+    })();
+
+    function renderThumbnailsAndPills() {
+      if (!currentIssue) return;
+      const pages = currentIssue.pages || [];
+      document.getElementById("sidebarPagesCount").textContent = `Pages (${pages.length})`;
+
+      const pillsEl = document.getElementById("desktopPagePills");
+      const thumbsEl = document.getElementById("sidebarThumbnails");
+      const mobGrid = document.getElementById("mobThumbsGrid");
+
+      pillsEl.innerHTML = "";
+      thumbsEl.innerHTML = "";
+      mobGrid.innerHTML = "";
+
+      pages.forEach((p, idx) => {
+        const pill = document.createElement("button");
+        pill.className = `page-pill w-7 h-7 rounded-lg text-xs font-extrabold transition cursor-pointer ${idx === currentPageIdx ? "bg-red-600 text-white" : "text-slate-300 hover:bg-slate-800"}`;
+        pill.textContent = p.page_number;
+        pill.onclick = () => goToPage(idx, true);
+        pillsEl.appendChild(pill);
+
+        const card = document.createElement("button");
+        card.className = `thumb-card group rounded-xl overflow-hidden border-2 transition text-left flex flex-col bg-slate-900 cursor-pointer ${idx === currentPageIdx ? "border-red-600 ring-2 ring-red-600/40" : "border-slate-800 opacity-80 hover:opacity-100"}`;
+        card.innerHTML = `
+          <div class="aspect-[2/3] w-full bg-slate-800 overflow-hidden">
+            <img src="${p.thumbnail_url}" alt="Page ${p.page_number}" class="w-full h-full object-cover" loading="lazy" />
+          </div>
+          <div class="thumb-label px-2.5 py-1.5 text-xs font-bold ${idx === currentPageIdx ? "bg-red-600 text-white" : "bg-slate-900 text-slate-300"}">
+            Page ${p.page_number}
+          </div>
+        `;
+        card.onclick = () => goToPage(idx, true);
+        thumbsEl.appendChild(card);
+
+        const mCard = document.createElement("button");
+        mCard.className = "rounded-lg overflow-hidden border border-slate-700 flex flex-col";
+        mCard.innerHTML = `
+          <img src="${p.thumbnail_url}" class="w-full aspect-[2/3] object-cover" />
+          <span class="text-xs font-bold text-white py-1 text-center bg-slate-800 w-full">Page ${p.page_number}</span>
+        `;
+        mCard.onclick = () => {
+          document.getElementById("mobThumbsModal").classList.add("hidden");
+          goToPage(idx, true);
+        };
+        mobGrid.appendChild(mCard);
+      });
+    }
+
+    function goToPage(idx, withSound = true) {
+      if (!currentIssue || !currentIssue.pages || idx < 0 || idx >= currentIssue.pages.length) return;
+      if (withSound && idx !== currentPageIdx) {
+        playTurnSound();
+      }
+      currentPageIdx = idx;
+      setCropMode(false);
+      const page = currentIssue.pages[idx];
+
+      viewer.open({ type: "image", url: page.large_url });
+      document.getElementById("mobPageIndicator").textContent = `Page ${page.page_number}/${currentIssue.pages.length}`;
+
+      document.querySelectorAll(".page-pill").forEach((el, i) => {
+        el.className = `page-pill w-7 h-7 rounded-lg text-xs font-extrabold transition cursor-pointer ${i === idx ? "bg-red-600 text-white" : "text-slate-300 hover:bg-slate-800"}`;
+      });
+      document.querySelectorAll(".thumb-card").forEach((el, i) => {
+        el.className = `thumb-card group rounded-xl overflow-hidden border-2 transition text-left flex flex-col bg-slate-900 cursor-pointer ${i === idx ? "border-red-600 ring-2 ring-red-600/40" : "border-slate-800 opacity-80 hover:opacity-100"}`;
+        const lbl = el.querySelector(".thumb-label");
+        if (lbl) lbl.className = `thumb-label px-2.5 py-1.5 text-xs font-bold ${i === idx ? "bg-red-600 text-white" : "bg-slate-900 text-slate-300"}`;
+      });
+    }
+
+    // Helper to pre-buffer and rasterize clip image into browser GPU memory (Jyothi CMS pattern)
+    function preBufferClipImage(url) {
+      if (!url) return Promise.resolve();
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = url;
+        if (img.decode) {
+          img.decode().then(resolve).catch(resolve);
+        } else {
+          img.onload = resolve;
+          img.onerror = resolve;
+        }
+      });
+    }
+
+    // Crop Confirmation -> PHP Imagick Branded Clipping Engine + Pre-Buffered GPU Decode
+    document.getElementById("confirmCropBtn").onclick = async () => {
+      if (!currentIssue) return;
+      const loadingEl = document.getElementById("loadingOverlay");
+      document.getElementById("loadingText").textContent = "Generating Official Vibhare Branded Clipping...";
+      loadingEl.classList.remove("hidden");
+
+      try {
+        const page = currentIssue.pages[currentPageIdx];
+        const res = await fetch("api/index.php?action=crop", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            issue_id: currentIssue.id,
+            page_number: page.page_number,
+            x: cropBox.x,
+            y: cropBox.y,
+            width: cropBox.width,
+            height: cropBox.height
+          })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          await preBufferClipImage(data.clip_url);
+          setCropMode(false);
+          document.getElementById("clipResultImg").src = data.clip_url;
+          document.getElementById("clipModalSub").textContent = `${data.publication_date} • Page ${data.page_number}`;
+          document.getElementById("downloadClipBtn").href = data.clip_url;
+          const fullClipUrl = new URL(data.clip_url, window.location.origin).href;
+          document.getElementById("whatsappShareBtn").href = `https://api.whatsapp.com/send?text=${encodeURIComponent(data.share_text + " " + fullClipUrl)}`;
+          document.getElementById("clipModal").classList.remove("hidden");
+        }
+      } finally {
+        loadingEl.classList.add("hidden");
+      }
+    };
+
+    // Reader Controls Wiring
+    document.getElementById("cancelCropBtn").onclick = () => setCropMode(false);
+    document.getElementById("cropToggleBtn").onclick = () => setCropMode(!isCropMode);
+    document.getElementById("mobCropBtn").onclick = () => setCropMode(!isCropMode);
+    document.getElementById("closeClipModalBtn").onclick = () => document.getElementById("clipModal").classList.add("hidden");
+    document.getElementById("mobPagesBtn").onclick = () => document.getElementById("mobThumbsModal").classList.remove("hidden");
+    document.getElementById("closeMobThumbsBtn").onclick = () => document.getElementById("mobThumbsModal").classList.add("hidden");
+
+    document.getElementById("prevPageBtn").onclick = () => goToPage(currentPageIdx - 1, true);
+    document.getElementById("nextPageBtn").onclick = () => goToPage(currentPageIdx + 1, true);
+    document.getElementById("floatPrevBtn").onclick = () => goToPage(currentPageIdx - 1, true);
+    document.getElementById("floatNextBtn").onclick = () => goToPage(currentPageIdx + 1, true);
+    document.getElementById("mobPrevBtn").onclick = () => goToPage(currentPageIdx - 1, true);
+    document.getElementById("mobNextBtn").onclick = () => goToPage(currentPageIdx + 1, true);
+
+    document.getElementById("zoomInBtn").onclick = () => viewer && viewer.viewport.zoomBy(1.35);
+    document.getElementById("zoomOutBtn").onclick = () => viewer && viewer.viewport.zoomBy(0.75);
+    document.getElementById("zoomResetBtn").onclick = () => viewer && viewer.viewport.goHome(true);
+
+    document.getElementById("soundToggleBtn").onclick = () => {
+      soundEnabled = !soundEnabled;
+      const btn = document.getElementById("soundToggleBtn");
+      btn.className = soundEnabled
+        ? "p-2 rounded-xl border border-amber-200 bg-amber-50 text-amber-800 text-xs font-bold flex items-center gap-1 cursor-pointer transition"
+        : "p-2 rounded-xl border border-slate-200 bg-slate-100 text-slate-400 text-xs font-bold flex items-center gap-1 cursor-pointer transition";
+      if (soundEnabled) playTurnSound();
+    };
+
+    window.addEventListener("keydown", (e) => {
+      const readerHidden = document.getElementById("readerView").classList.contains("hidden");
+      if (readerHidden) return;
+      if (e.key === "Escape") {
+        if (isCropMode) {
+          setCropMode(false);
+        } else {
+          closeReaderBackToHome();
+        }
+        return;
+      }
+      if (isCropMode) return;
+      if (e.key === "ArrowRight") goToPage(currentPageIdx + 1, true);
+      if (e.key === "ArrowLeft") goToPage(currentPageIdx - 1, true);
+    });
+
+    initHomePage();
+  </script>
+</body>
+</html>

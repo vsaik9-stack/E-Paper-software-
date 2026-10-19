@@ -1,0 +1,18 @@
+# Automatic HTTPS / SSL for Disha Daily (epaper.dishadaily.com)
+epaper.dishadaily.com {
+    encode zstd gzip
+
+    handle /api/v1/* {
+        reverse_proxy 127.0.0.1:8101 {
+            header_up Host {host}
+            header_up X-Tenant-Slug dishadaily
+        }
+    }
+
+    handle {
+        reverse_proxy 127.0.0.1:8201 {
+            header_up Host {host}
+            header_up X-Tenant-Slug dishadaily
+        }
+    }
+}

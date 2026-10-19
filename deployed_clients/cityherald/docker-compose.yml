@@ -1,0 +1,38 @@
+version: "3.9"
+
+# Isolated Docker Stack for City Herald (epaper.cityherald.com)
+services:
+  postgres_cityherald:
+    image: postgres:16-alpine
+    container_name: epaper_db_cityherald
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: epaper
+      POSTGRES_PASSWORD: epaper_cityherald_pass
+      POSTGRES_DB: epaper_cityherald
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+
+  backend_cityherald:
+    build: ./backend
+    container_name: epaper_api_cityherald
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./data/storage:/app/storage_data
+    ports:
+      - "8103:8000"
+    depends_on:
+      - postgres_cityherald
+
+  frontend_cityherald:
+    build: ./frontend
+    container_name: epaper_web_cityherald
+    restart: unless-stopped
+    environment:
+      BACKEND_INTERNAL_URL: http://backend_cityherald:8000
+      NEXT_PUBLIC_SINGLE_TENANT_SLUG: cityherald
+    ports:
+      - "8203:3000"
+    depends_on:
+      - backend_cityherald

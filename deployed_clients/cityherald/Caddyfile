@@ -1,0 +1,18 @@
+# Automatic HTTPS / SSL for City Herald (epaper.cityherald.com)
+epaper.cityherald.com {
+    encode zstd gzip
+
+    handle /api/v1/* {
+        reverse_proxy 127.0.0.1:8103 {
+            header_up Host {host}
+            header_up X-Tenant-Slug cityherald
+        }
+    }
+
+    handle {
+        reverse_proxy 127.0.0.1:8203 {
+            header_up Host {host}
+            header_up X-Tenant-Slug cityherald
+        }
+    }
+}

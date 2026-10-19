@@ -1,0 +1,16 @@
+{
+  "single_tenant_lock": true,
+  "client_name": "City Herald",
+  "client_slug": "cityherald",
+  "domain": "epaper.cityherald.com",
+  "logo_url": null,
+  "brand_primary_color": "#059669",
+  "brand_secondary_color": "#064e3b",
+  "editions": [
+    "Metro Financial",
+    "National Edition"
+  ],
+  "admin_portal_url": "https://epaper.cityherald.com/admin",
+  "admin_email": "editor@cityherald.com",
+  "generated_at": "2026-10-19 05:35:30 UTC"
+}

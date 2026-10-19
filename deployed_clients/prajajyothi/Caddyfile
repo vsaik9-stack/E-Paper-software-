@@ -1,0 +1,18 @@
+# Automatic HTTPS / SSL for Praja Jyothi (epaper.prajajyothi.com)
+epaper.prajajyothi.com {
+    encode zstd gzip
+
+    handle /api/v1/* {
+        reverse_proxy 127.0.0.1:8102 {
+            header_up Host {host}
+            header_up X-Tenant-Slug prajajyothi
+        }
+    }
+
+    handle {
+        reverse_proxy 127.0.0.1:8202 {
+            header_up Host {host}
+            header_up X-Tenant-Slug prajajyothi
+        }
+    }
+}

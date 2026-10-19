@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vibhare Telugu Daily • Publisher E-Paper Uploader & Admin Portal</title>
+  <link rel="icon" type="image/png" href="../assets/logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
+
+  <!-- Top Header -->
+  <header class="bg-slate-900 text-white px-6 py-4 flex flex-wrap items-center justify-between gap-4 border-b border-slate-800" style="border-top: 4px solid #dc2626;">
+    <div class="flex items-center gap-4">
+      <img src="../assets/logo.png" alt="Vibhare Logo" class="h-11 bg-white p-1 rounded-lg object-contain" />
+      <div>
+        <h1 class="text-lg font-black tracking-tight">విభారె తెలుగు దినపత్రిక • Publisher Admin & Daily PDF Uploader</h1>
+        <p class="text-xs text-slate-400">Vision Bharath Reporter • Upload Daily Broadsheet PDFs & Manage Editions</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="../" class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-extrabold transition shadow">
+        ← Open Live E-Paper Reader
+      </a>
+      <button id="logoutBtn" class="hidden px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold cursor-pointer">
+        Logout
+      </button>
+    </div>
+  </header>
+
+  <!-- Login Screen -->
+  <div id="loginSection" class="flex-1 flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 rounded-2xl p-8 max-w-md w-full shadow-lg">
+      <div class="text-center mb-6">
+        <img src="../assets/logo.png" alt="Vibhare" class="h-14 mx-auto mb-3 object-contain" />
+        <h2 class="text-xl font-black text-slate-900">Publisher Admin Login</h2>
+        <p class="text-xs text-slate-500 mt-1">Sign in to upload today's Vibhare Telugu Daily PDF</p>
+      </div>
+
+      <div id="loginError" class="hidden mb-4 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold"></div>
+
+      <form id="loginForm" class="flex flex-col gap-4">
+        <div>
+          <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Admin Email</label>
+          <input id="emailInput" type="email" value="editor@vibharenews.com" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-semibold" required />
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Password</label>
+          <input id="passwordInput" type="password" value="Vibhare@2026" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-semibold" required />
+        </div>
+        <button type="submit" class="mt-2 py-3 px-4 rounded-xl bg-red-600 hover:bg-red-700 text-white font-extrabold text-sm shadow cursor-pointer transition">
+          Sign In to Uploader Portal
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Authenticated Admin Portal -->
+  <div id="adminSection" class="hidden max-w-6xl w-full mx-auto p-6 flex-1 flex flex-col gap-6">
+    <!-- Metrics Row -->
+    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs">
+        <span class="text-xs font-bold uppercase text-slate-400">Published Issues</span>
+        <p id="metricIssues" class="text-3xl font-black text-slate-900 mt-1">0</p>
+      </div>
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs">
+        <span class="text-xs font-bold uppercase text-slate-400">Active Editions</span>
+        <p id="metricEditions" class="text-3xl font-black text-red-600 mt-1">0</p>
+      </div>
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs">
+        <span class="text-xs font-bold uppercase text-slate-400">Total Pages Rendered</span>
+        <p id="metricPages" class="text-3xl font-black text-slate-900 mt-1">0</p>
+      </div>
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs">
+        <span class="text-xs font-bold uppercase text-slate-400">Reader Views</span>
+        <p id="metricViews" class="text-3xl font-black text-emerald-600 mt-1">0</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <!-- Left 5 Cols: Daily PDF Uploader & Edition Creator -->
+      <div class="lg:col-span-5 flex flex-col gap-6">
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-2xs">
+          <h2 class="text-base font-black text-slate-900 mb-1">📤 Upload Daily E-Paper PDF</h2>
+          <p class="text-xs text-slate-500 mb-4">
+            Select edition & date, then choose your multi-page newspaper PDF. It will automatically render HD WebP pages & publish live.
+          </p>
+
+          <div id="uploadSuccessBox" class="hidden mb-4 p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold"></div>
+          <div id="uploadErrorBox" class="hidden mb-4 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold"></div>
+
+          <form id="uploadForm" class="flex flex-col gap-4">
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Target Edition</label>
+              <select id="uploadEditionSelect" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-semibold" required></select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Publication Date</label>
+              <input id="uploadDateInput" type="date" class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-semibold" required />
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Newspaper PDF File</label>
+              <input id="uploadFileInput" type="file" accept="application/pdf" class="w-full border-2 border-dashed border-slate-300 rounded-xl p-4 text-sm bg-slate-50 cursor-pointer" required />
+            </div>
+            <button id="uploadSubmitBtn" type="submit" class="py-3 px-4 rounded-xl bg-red-600 hover:bg-red-700 text-white font-extrabold text-sm shadow cursor-pointer transition">
+              🚀 Upload & Publish Issue Live
+            </button>
+          </form>
+        </div>
+
+        <!-- Add New Edition -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-2xs">
+          <h3 class="text-sm font-black text-slate-900 mb-3">➕ Add New Regional Edition</h3>
+          <form id="editionForm" class="flex gap-2">
+            <input id="newEditionName" type="text" placeholder="e.g. Warangal / Nizamabad" class="flex-1 border border-slate-300 rounded-xl px-3.5 py-2 text-sm" required />
+            <button type="submit" class="px-4 py-2 rounded-xl bg-slate-900 text-white text-xs font-bold cursor-pointer">Add Edition</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Right 7 Cols: Published Issues List -->
+      <div class="lg:col-span-7">
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
+          <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+            <h2 class="font-black text-base text-slate-900">Published Vibhare E-Paper Issues</h2>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-sm">
+              <thead>
+                <tr class="bg-slate-50 text-slate-500 text-xs uppercase">
+                  <th class="py-3 px-5">Date</th>
+                  <th class="py-3 px-4">Edition</th>
+                  <th class="py-3 px-4">Pages</th>
+                  <th class="py-3 px-4">Views</th>
+                  <th class="py-3 px-5 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="issuesTableBody" class="divide-y divide-slate-200"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("uploadDateInput").value = new Date().toISOString().slice(0, 10);
+    let token = localStorage.getItem("vibhare_admin_token") || "";
+
+    async function checkAuthAndLoad() {
+      if (!token) return;
+      const res = await fetch("../api/index.php?action=admin_dashboard", {
+        headers: { "Authorization": "Bearer " + token }
+      });
+      if (!res.ok) {
+        localStorage.removeItem("vibhare_admin_token");
+        token = "";
+        return;
+      }
+      const data = await res.json();
+      document.getElementById("loginSection").classList.add("hidden");
+      document.getElementById("adminSection").classList.remove("hidden");
+      document.getElementById("logoutBtn").classList.remove("hidden");
+
+      document.getElementById("metricIssues").textContent = data.metrics.issues_count;
+      document.getElementById("metricEditions").textContent = data.metrics.editions_count;
+      document.getElementById("metricPages").textContent = data.metrics.total_pages;
+      document.getElementById("metricViews").textContent = data.metrics.total_views;
+
+      const edSelect = document.getElementById("uploadEditionSelect");
+      edSelect.innerHTML = "";
+      (data.editions || []).forEach((ed) => {
+        const opt = document.createElement("option");
+        opt.value = ed.id;
+        opt.textContent = ed.name;
+        edSelect.appendChild(opt);
+      });
+
+      const tbody = document.getElementById("issuesTableBody");
+      tbody.innerHTML = "";
+      (data.issues || []).forEach((iss) => {
+        const tr = document.createElement("tr");
+        tr.className = "hover:bg-slate-50";
+        tr.innerHTML = `
+          <td class="py-3.5 px-5 font-bold text-slate-900">${iss.publication_date}</td>
+          <td class="py-3.5 px-4 text-slate-700 font-semibold">${iss.edition_name}</td>
+          <td class="py-3.5 px-4">${iss.page_count} Pages</td>
+          <td class="py-3.5 px-4 font-semibold text-emerald-700">${iss.views_count}</td>
+          <td class="py-3.5 px-5 text-right space-x-2">
+            <a href="../?issue_id=${iss.id}" class="text-xs font-bold text-indigo-600 hover:underline">View</a>
+            <button data-del="${iss.id}" class="del-btn text-xs font-bold text-rose-600 hover:underline cursor-pointer">Delete</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.querySelectorAll(".del-btn").forEach((btn) => {
+        btn.onclick = async () => {
+          if (!confirm("Delete this issue?")) return;
+          await fetch("../api/index.php?action=delete_issue", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
+            body: JSON.stringify({ issue_id: btn.getAttribute("data-del") })
+          });
+          checkAuthAndLoad();
+        };
+      });
+    }
+
+    document.getElementById("loginForm").onsubmit = async (e) => {
+      e.preventDefault();
+      const errBox = document.getElementById("loginError");
+      errBox.classList.add("hidden");
+      const res = await fetch("../api/index.php?action=login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: document.getElementById("emailInput").value,
+          password: document.getElementById("passwordInput").value
+        })
+      });
+      if (!res.ok) {
+        errBox.textContent = "Invalid email or password.";
+        errBox.classList.remove("hidden");
+        return;
+      }
+      const data = await res.json();
+      token = data.access_token;
+      localStorage.setItem("vibhare_admin_token", token);
+      checkAuthAndLoad();
+    };
+
+    document.getElementById("uploadForm").onsubmit = async (e) => {
+      e.preventDefault();
+      const file = document.getElementById("uploadFileInput").files[0];
+      if (!file) return;
+
+      const btn = document.getElementById("uploadSubmitBtn");
+      const sBox = document.getElementById("uploadSuccessBox");
+      const eBox = document.getElementById("uploadErrorBox");
+      sBox.classList.add("hidden");
+      eBox.classList.add("hidden");
+
+      btn.disabled = true;
+      btn.textContent = "⏳ Rendering High-Resolution WebP Pages from PDF (Please wait)...";
+
+      try {
+        const fd = new FormData();
+        fd.append("edition_id", document.getElementById("uploadEditionSelect").value);
+        fd.append("publication_date", document.getElementById("uploadDateInput").value);
+        fd.append("file", file);
+
+        const res = await fetch("../api/index.php?action=upload_issue", {
+          method: "POST",
+          headers: { "Authorization": "Bearer " + token },
+          body: fd
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          sBox.innerHTML = `✅ Published ${data.page_count} Pages for ${data.edition_name} (${data.publication_date})! <a href="../" class="underline ml-2">Open Reader →</a>`;
+          sBox.classList.remove("hidden");
+          document.getElementById("uploadFileInput").value = "";
+          checkAuthAndLoad();
+        } else {
+          eBox.textContent = data.error || "Upload failed.";
+          eBox.classList.remove("hidden");
+        }
+      } catch (err) {
+        eBox.textContent = "Upload error: " + err.message;
+        eBox.classList.remove("hidden");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "🚀 Upload & Publish Issue Live";
+      }
+    };
+
+    document.getElementById("editionForm").onsubmit = async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("newEditionName").value;
+      await fetch("../api/index.php?action=create_edition", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
+        body: JSON.stringify({ name })
+      });
+      document.getElementById("newEditionName").value = "";
+      checkAuthAndLoad();
+    };
+
+    document.getElementById("logoutBtn").onclick = () => {
+      localStorage.removeItem("vibhare_admin_token");
+      location.reload();
+    };
+
+    checkAuthAndLoad();
+  </script>
+</body>
+</html>
